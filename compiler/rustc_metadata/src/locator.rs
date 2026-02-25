@@ -846,7 +846,7 @@ fn get_metadata_section<'p>(
             };
 
             let crate_name = crate_name.unwrap();
-            debug!("compiling {}", filename.display());
+            debug!("compiling {} \r", filename.display());
             // FIXME: This will need to be done either within the current compiler session or
             // as a separate compiler session in the same process.
             let res = std::process::Command::new(compiler)
@@ -865,6 +865,8 @@ fn get_metadata_section<'p>(
                     "couldn't compile interface: {}",
                     std::str::from_utf8(&res.stderr).unwrap_or_default()
                 )));
+            } else {
+                debug!("compiled {}", filename.display());
             }
 
             // Load interface metadata instead of crate metadata.
